@@ -1,0 +1,22 @@
+class Solution {
+    public int subarraySum(int[] nums, int k) {
+        int maxLen = 0;
+        int curSum = 0;
+        HashMap<Integer, Integer> hm = new HashMap<>();
+         // Initialize with a sum of 0 to account for subarrays starting from the beginning
+        hm.put(0, 1);
+
+        for (int i = 0; i < nums.length; i++) {
+            curSum += nums[i];
+
+            
+            if (hm.containsKey(curSum - k)) {
+                maxLen +=  hm.get(curSum - k);
+            }
+        // Update the frequency of the current sum
+            hm.put(curSum, hm.getOrDefault(curSum, 0) + 1);
+        }
+
+        return maxLen;
+    }
+}
