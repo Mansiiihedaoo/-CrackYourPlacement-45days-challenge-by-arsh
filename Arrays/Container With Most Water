@@ -1,0 +1,24 @@
+class Solution {
+    public int maxArea(int[] height) {
+        // use 2 for loops - 0(n2)
+
+        // using 2 pointers
+        int n= height.length;
+        int max =0;
+        int left=0;
+        int right =n-1;
+        while(left< right){
+            int leftH =height[left];
+            int rightH = height[ right];
+            int minH = Math.min( leftH , rightH);
+            max =Math.max( max ,minH*( right -left)); // length* breadth
+            if( leftH < rightH){
+                left++;
+            }else{
+                right--;
+            }
+        }
+        return max;
+
+    }
+}
