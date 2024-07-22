@@ -5,8 +5,7 @@ class Solution {
             if (hm.containsKey(nums[i])) {
                 return nums[i]; // Return the duplicate number immediately when found
             } else {
-                hm.put(nums[i], i);
-            }
+                hm.put(nums[i], i);            }
         }
         return -1; // This line should never be reached due to problem constraints
          TC : O(N) , SC: 0(N)
