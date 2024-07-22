@@ -1,0 +1,72 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+class Solution {
+    public List<Integer> countSmaller(int[] nums) {
+        int n = nums.length;
+        Integer[] result = new Integer[n];
+        Pair[] pairs = new Pair[n];
+
+        for (int i = 0; i < n; i++) {
+            pairs[i] = new Pair(nums[i], i);
+            result[i] = 0;
+        }
+
+        mergeSort(pairs, result, 0, n-1);
+
+        return Arrays.asList(result);
+    }
+    static class Pair {
+        int value;
+        int index;
+
+        public Pair(int value, int index) {
+            this.value = value;
+            this.index = index;
+        }
+    }
+    private void mergeSort(Pair[] pairs, Integer[] result, int low, int high) {
+        if (low < high) {
+            int mid = low + (high - low) / 2;
+            mergeSort(pairs, result, low, mid);
+            mergeSort(pairs, result, mid + 1, high);
+            merge(pairs, result, low, mid, high);
+        }
+    }
+
+    private void merge(Pair[] pairs, Integer[] result, int low, int mid, int high) {
+        ArrayList<Pair> temp = new ArrayList<>();
+        int left = low;
+        int right = mid + 1;
+        int rightCount = 0;
+
+        while (left <= mid && right <= high) {
+            if (pairs[left].value > pairs[right].value) {
+                temp.add(pairs[right]);
+                rightCount++;
+                right++;
+            } else {
+                temp.add(pairs[left]);
+                result[pairs[left].index] += rightCount;
+                left++;
+            }
+        }
+
+        while (left <= mid) {
+            temp.add(pairs[left]);
+            result[pairs[left].index] += rightCount;
+            left++;
+        }
+
+        while (right <= high) {
+            temp.add(pairs[right]);
+            right++;
+        }
+
+        System.arraycopy(temp.toArray(), 0, pairs, low, temp.size());
+    }
+
+    
+    
+}
