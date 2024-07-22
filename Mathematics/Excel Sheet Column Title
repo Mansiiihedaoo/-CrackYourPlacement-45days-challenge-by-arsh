@@ -1,0 +1,21 @@
+class Solution {
+    public String convertToTitle(int columnNumber) {
+        String result="";
+
+        while (columnNumber > 0) {
+            // Convert the column number to 0-based index
+            columnNumber--; // n-1
+
+            // Find the remainder when divided by 26 to determine the rightmost character
+            char c = (char) ('A' + (columnNumber % 26));
+
+            // Prepend the character to the result
+            result= c + result;
+
+            // Move to the next column to the left
+            columnNumber /= 26;
+        }
+
+        return result.toString();
+    }
+}
