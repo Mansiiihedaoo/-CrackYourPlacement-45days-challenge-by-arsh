@@ -1,0 +1,41 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+// Approach-3 (Only Recursion)
+// T.C : O(n)
+// S.C : O(1) Auxiliary Space and O(n) Recursion Stack Space
+class Solution {
+    ListNode curr;
+
+    void solve(ListNode head) {
+        if (head == null) {
+            return;
+        }
+
+        solve(head.next);
+        ListNode tempn = curr.next;
+        if (tempn == null) {
+            return;
+        } else if (head == curr) {
+            head.next = null;
+            return;
+        }
+
+        curr.next = head;
+        head.next = tempn == head ? null : tempn;
+
+        curr = tempn;
+    }
+
+    void reorderList(ListNode head) {
+        curr = head;
+        solve(head);
+    }
+}
