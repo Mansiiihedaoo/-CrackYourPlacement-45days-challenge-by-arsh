@@ -1,0 +1,33 @@
+class Solution {
+    public int findDuplicate(int[] nums) {
+        /* HashMap<Integer, Integer> hm = new HashMap<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            if (hm.containsKey(nums[i])) {
+                return nums[i]; // Return the duplicate number immediately when found
+            } else {
+                hm.put(nums[i], i);
+            }
+        }
+        return -1; // This line should never be reached due to problem constraints
+         TC : O(N) , SC: 0(N)
+        */
+
+        2.better
+
+        // TC : O(N) , SC: 0(1)
+        int slow = nums[0];
+        int fast = nums[0];
+        do {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+        } while (slow != fast);
+
+        fast = nums[0];
+        while (slow != fast) {
+            slow = nums[slow];
+            fast = nums[fast];
+        }
+        return slow;
+    }
+}
