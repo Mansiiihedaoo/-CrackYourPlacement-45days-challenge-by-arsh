@@ -1,0 +1,21 @@
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        ArrayList<String> ans = new ArrayList<>();
+        generateValidP( ans,n,0,0, "");
+        return ans;
+
+    }
+    void generateValidP(ArrayList<String> ans , int n , int open,int closed ,String curStr){
+        //base condition
+        if(curStr.length() ==2*n){
+            ans.add(curStr);
+            return;
+        }
+        if(open<n){
+            generateValidP(ans,n,open+1,closed,curStr + "(" );
+        }
+        if(closed< open){
+            generateValidP(ans,n,open ,closed+1 ,curStr +")" );
+        }
+    }
+}
